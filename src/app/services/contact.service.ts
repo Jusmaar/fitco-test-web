@@ -10,7 +10,6 @@ import { map } from 'rxjs/operators';
 export class ContactService {
   contactsCollection: AngularFirestoreCollection<IContact>;
   contacts: Observable<any>;
-  contactsDoc: AngularFirestoreDocument<IContact>;
   constructor(
     public afs: AngularFirestore
   ) {
@@ -20,7 +19,6 @@ export class ContactService {
         map(actions => actions.map(a => {
           const data = a.payload.doc.data() as IContact;
           const id = a.payload.doc.id;
-
           return { id, ...data };
         }))
       );

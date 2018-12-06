@@ -18,6 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   contactSub: Subscription;
 
+  contacts: Array<IContact>;
   constructor(
     private contactService: ContactService,
     private formBuilder: FormBuilder
@@ -26,12 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.createForm();
-    this.contactSub = this.contactService.getContacts()
-      .subscribe(contacts => {
-        console.log(contacts);
-      }, () => { }, () => {
-        this.contactSub.unsubscribe();
-      });
+    this.getContacts();
   }
 
   ngOnDestroy(): void {
@@ -52,6 +48,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this.email = this.formContact.controls['email'];
     this.information = this.formContact.controls['information'];
 
+  }
+
+  getContacts(): void {
+    this.contactSub = this.contactService.getContacts()
+      .subscribe(contacts => {
+        this.contacts = contacts;
+        console.log(contacts);
+      }, () => { }, () => {
+        this.contactSub.unsubscribe();
+      });
   }
 
   createContact(): void {

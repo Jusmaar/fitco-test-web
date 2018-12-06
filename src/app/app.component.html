@@ -12,4 +12,13 @@
       <button (click)="createContact()" class="fitco-main__form__btn">Añadir</button>
     </form>
   </div>
+  <h2>Lista de contactos</h2>
+  <hr>
+  <ng-container *ngFor="let contact of contacts">
+    <div class="fitco-contact">
+      {{ contact.name }}
+    </div>
+    <hr>
+
+  </ng-container>
 </div>
